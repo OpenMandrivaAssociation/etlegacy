@@ -60,7 +60,7 @@ version and as many of its mods as possible...
         -DFEATURE_LUA= \
         -DFEATURE_MULTIVIEW=0 \
         -DFEATURE_ANTICHEAT=1 \
-        -DFEATURE_CURSES=1 \
+        -DFEATURE_CURSES=0 \
         -DFEATURE_AUTOUPDATE=1 \
         -DFEATURE_RENDERER2=0 \
         -DFEATURE_IPV6=0 \
