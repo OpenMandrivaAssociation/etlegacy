@@ -38,7 +38,7 @@ version and as many of its mods as possible...
 %cmake \
 		-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
 		-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
-        -D INSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name} \
+        -DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name} \
 		-DCMAKE_BUILD_TYPE="Release" \
         -DBUILD_SERVER=1 \
         -DBUILD_CLIENT=1 \
