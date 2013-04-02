@@ -22,10 +22,17 @@ operating systems while still remaining compatible with the ET 2.60b
 version and as many of its mods as possible...
 
 %prep
-%setup -q
+%setup -qn %{name}-%{snapshot}
 
 %build
-%cmake
+%cmake \
+		-D INSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
+		-D INSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
+		-D CMAKE_BUILD_TYPE="Release" \
+        -D BUILD_SERVER=1 \
+        -D BUILD_CLIENT=1 \
+        -D BUILD_MOD=1 \
+        -D BUILD_PAK3_PK3=1
 
 %make
 
