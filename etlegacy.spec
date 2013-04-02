@@ -26,13 +26,13 @@ version and as many of its mods as possible...
 
 %build
 %cmake \
-		-D INSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
-		-D INSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
-		-D CMAKE_BUILD_TYPE="Release" \
-        -D BUILD_SERVER=1 \
-        -D BUILD_CLIENT=1 \
-        -D BUILD_MOD=1 \
-        -D BUILD_PAK3_PK3=1
+		-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
+		-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
+		-DCMAKE_BUILD_TYPE="Release" \
+        -DBUILD_SERVER=1 \
+        -DBUILD_CLIENT=1 \
+        -DBUILD_MOD=1 \
+        -DBUILD_PAK3_PK3=1
 
 %make
 
