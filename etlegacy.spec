@@ -70,7 +70,11 @@ version and as many of its mods as possible...
 %make
 
 %install
-%makeinstall_std
+%makeinstall_std -C build
 
 %files
 %doc README.md
+%dir %{_gamesdatadir}/%{name}
+%{_gamesbindir}/etl
+%{_gamesbindir}/etlded
+%{_gamesdatadir}/%{name}/*
