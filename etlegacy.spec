@@ -1,3 +1,6 @@
+%define _enable_debug_packages %{nil}
+%define debug_package %{nil}
+
 %define snapshot 20130402
 
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
