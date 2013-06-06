@@ -1,12 +1,12 @@
 %define _enable_debug_packages %{nil}
 %define debug_package %{nil}
 
-%define snapshot 20130402
+%define snapshot 20130606
 
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
 Name:		etlegacy
 Version:	2.71
-Release:	0.rc1.1
+Release:	0.rc1.2
 License:	GPL3
 Group:		Games/Other
 Url:		http://www.etlegacy.com/
@@ -40,10 +40,10 @@ version and as many of its mods as possible...
 
 %build
 %cmake \
-		-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
-		-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
+	-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
+	-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
         -DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name} \
-		-DCMAKE_BUILD_TYPE="Release" \
+	-DCMAKE_BUILD_TYPE="Release" \
         -DBUILD_SERVER=1 \
         -DBUILD_CLIENT=1 \
         -DBUILD_MOD=1 \
