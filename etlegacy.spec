@@ -71,7 +71,7 @@ version and as many of its mods as possible...
         -DFEATURE_OMNIBOT=0 \
         -DINSTALL_OMNIBOT=0
 
-%make
+%make VERBOSE=1
 
 %install
 %makeinstall_std -C build
