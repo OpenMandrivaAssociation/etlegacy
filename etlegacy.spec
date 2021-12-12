@@ -18,6 +18,14 @@ BuildRequires:	pkgconfig(lua)
 BuildRequires:	pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:	pkgconfig(glew)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(minizip)
+BuildRequires:  pkgconfig(ogg)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(theora)
+BuildRequires:  pkgconfig(x11)
 
 %description
 ET: Legacy is based on the source code of Wolfenstein: Enemy Territory
