@@ -35,6 +35,8 @@ version and as many of its mods as possible...
 		-DARM=ON \
 		-DFEATURE_RENDERER_GLES=ON \
 %endif
+		-DCROSS_COMPILE32=OFF \
+		-DCLIENT_GLVND=ON \
 		-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
 		-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
 		-DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name}
