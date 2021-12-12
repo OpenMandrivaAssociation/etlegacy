@@ -16,7 +16,7 @@ BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(lua)
 BuildRequires:	pkgconfig(ncursesw)
-BuildRequires:	pkgconfig(sdl)
+BuildRequires:  pkgconfig(sdl2)
 BuildRequires:	pkgconfig(glew)
 
 %description
