@@ -1,12 +1,25 @@
+%global __provides_exclude_from ^%{_gamesdatadir}/%{name}/.*\\.so$
+# (tpg) filter wrong requires
+%ifarch %{armx}
+%global __requires_exclude ^libc.so.6.*$|^libgcc_s.so.1.*$|^libm.so.6.*$|^librt.so.1.*$|^libstdc\\+\\+.so.6.*$
+%endif
+
+# (tpg) (2023-03-26) with LTO enabled this game does not want to start
+%define _disable_lto 1
+# optimize it a bit
+%global optflags %{optflags} -O3
+
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
 Name:		etlegacy
 Version:	2.81.1
-Release:	1
+Release:	2
 License:	GPL3
 Group:		Games/Other
 Url:		http://www.etlegacy.com/
 Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
+Source1:	etlegacy-download-data
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(libcurl)
@@ -47,16 +60,26 @@ sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Release"),# &,' -i cmake/ETLCommon.cmake
 	-DBUILD_MOD=ON \
 	-DCLIENT_GLVND=ON \
 	-DFEATURE_RENDERER2=OFF \
+%ifarch %{armx}
+	-DARM=ON \
+%else
+	-DENABLE_SSE=ON \
+%endif
 	-DFEATURE_AUTOUPDATE=OFF \
-	-DINSTALL_EXTRA=OFF \
+	-DINSTALL_EXTRA=ON \
 	-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
 	-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
-	-DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name}
+	-DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name} \
+	-G Ninja
 
-%make_build
+%ninja_build
 
 %install
-%make_install -C build
+%ninja_install -C build
+install -m755 %{SOURCE1} %{buildroot}%{_gamesbindir}/etlegacy-download-data
+
+%post
+printf '%s\n' 'Please download assets by running "sudo %{_gamesbindir}/etlegacy-download-data"'
 
 %files
 %license %{_datadir}/licenses/etlegacy/COPYING.txt
