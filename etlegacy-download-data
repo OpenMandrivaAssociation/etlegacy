@@ -1,0 +1,35 @@
+#!/bin/sh
+# tpgxyz@gmail.com
+
+printf '%s\n' "This tool is going to download assets needed to play ETLegacy."
+
+[ $(id -u) != "0" ] && printf '%s\n' "You have to be root to run this script. Exiting." && exit 1
+
+GAMESDIR="/usr/share/games"
+ETL="etlegacy"
+ETL_REPOSITORY="https://mirror.etlegacy.com/etmain"
+PAK0_MD5SUM="9558347f477bfbdc65b06768ce2e31d1"
+PAK1_MD5SUM="2502d531f5505d920ee1129baf392925"
+PAK2_MD5SUM="256da2aa10c43728f36515ddad1aa582"
+
+[ ! -d "$GAMESDIR/$ETL" ] && printf '%s\n' "error: $ETL directory is missing in $GAMESDIR. Check your etlegacy installation. Exiting." && exit 1
+[ ! -x $(command -v wget) ] && printf '%s\n' "error: wget is missing. Please install it and try again. Exiting." && exit 1
+[ ! -x $(command -v md5sum) ] && printf '%s\n' "error: md5sum is missing. Please install it and try again. Exiting." && exit 1
+
+TMP_DOWNLOAD=$(mktemp -d /tmp/$ETL.XXXXXX)
+
+trap "rm -rf $TMP_DOWNLOAD" EXIT
+[ $? -ne 0 ] && printf '%s\n' "$0: Can't create temp dir, exiting..." && exit 4
+
+cd $TMP_DOWNLOAD
+for p in 0 1 2; do
+    printf '%s\n' "Downloading $ETL_REPOSITORY/pak${p}.pk3"
+    wget -q "$ETL_REPOSITORY"/pak${p}.pk3
+    printf '%s\n' "Checking if checksum is correct for pak${p}.pk3"
+    TMP_MD5SUM="PAK${p}_MD5SUM"
+    [ -f pak${p}.pk3 ] && [ $(md5sum pak${p}.pk3 | awk '{ print $1 }') = "${!TMP_MD5SUM}" ] && continue
+    printf '%s\n' "Failed." && exit 1
+done
+cp -a -f pak*.pk3 "$GAMESDIR/$ETL/etmain/"
+printf '%s\n' "Copying finsihed. You can start playing ETLegacy."
+cd ..

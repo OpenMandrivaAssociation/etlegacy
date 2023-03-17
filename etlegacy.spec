@@ -1,3 +1,5 @@
+%global __provides_exclude_from ^%{_gamesdatadir}/%{name}/.*\\.so$
+
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
 Name:		etlegacy
 Version:	2.81.1
@@ -6,7 +8,9 @@ License:	GPL3
 Group:		Games/Other
 Url:		http://www.etlegacy.com/
 Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
+Source1:	etlegacy-download-data
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(libcurl)
@@ -38,25 +42,36 @@ version and as many of its mods as possible...
 %autosetup -p1
 
 # Use system flags for all products
-sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Release"),# &,' -i cmake/ETLCommon.cmake
+sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Debug"),# &,' -i cmake/ETLCommon.cmake
 
 %build
 %cmake \
+	-DCMAKE_BUILD_TYPE=Debug \
 	-DBUNDLED_LIBS=OFF \
 	-DCROSS_COMPILE32=OFF \
 	-DBUILD_MOD=ON \
 	-DCLIENT_GLVND=ON \
 	-DFEATURE_RENDERER2=OFF \
+%ifarch %{armx}
+	-DARM=ON \
+%else
+	-DENABLE_SSE=ON \
+%endif
 	-DFEATURE_AUTOUPDATE=OFF \
-	-DINSTALL_EXTRA=OFF \
+	-DINSTALL_EXTRA=ON \
 	-DINSTALL_DEFAULT_BINDIR=%{_gamesbindir} \
 	-DINSTALL_DEFAULT_BASEDIR=%{_gamesdatadir}/%{name} \
-	-DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name}
+	-DINSTALL_DEFAULT_MODDIR=%{_gamesdatadir}/%{name} \
+	-G Ninja
 
-%make_build
+%ninja_build
 
 %install
-%make_install -C build
+%ninja_install -C build
+install -m755 %{SOURCE1} %{buildroot}%{_gamesbindir}/etlegacy-download-data
+
+%post
+printf '%s\n' 'Please download assets by running "sudo %{_gamesbindir}/etlegacy-download-data"'
 
 %files
 %license %{_datadir}/licenses/etlegacy/COPYING.txt
