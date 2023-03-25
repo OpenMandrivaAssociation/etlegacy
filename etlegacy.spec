@@ -52,6 +52,11 @@ sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Debug"),# &,' -i cmake/ETLCommon.cmake
 	-DBUILD_MOD=ON \
 	-DCLIENT_GLVND=ON \
 	-DFEATURE_RENDERER2=OFF \
+	-DFEATURE_OGG_VORBIS=1 \
+	-DFEATURE_THEORA=1 \
+	-DFEATURE_OPENAL=1 \
+	-DFEATURE_FREETYPE=1 \
+	-DFEATURE_PNG=1 \
 %ifarch %{armx}
 	-DARM=ON \
 %else
