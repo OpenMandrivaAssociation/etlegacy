@@ -12,7 +12,7 @@
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
 Name:		etlegacy
 Version:	2.81.1
-Release:	2
+Release:	3
 License:	GPL3
 Group:		Games/Other
 Url:		http://www.etlegacy.com/
@@ -60,6 +60,7 @@ sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Release"),# &,' -i cmake/ETLCommon.cmake
 	-DBUILD_MOD=ON \
 	-DCLIENT_GLVND=ON \
 	-DFEATURE_RENDERER2=OFF \
+	-DENABLE_MULTI_BUILD=OFF \
 %ifarch %{armx}
 	-DARM=ON \
 %else
