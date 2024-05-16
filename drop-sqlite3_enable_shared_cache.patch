@@ -1,0 +1,21 @@
+diff -uraN etlegacy-2.82.1/src/db/db_sqlite3.c omv-etlegacy-2.82.1/src/db/db_sqlite3.c
+--- etlegacy-2.82.1/src/db/db_sqlite3.c	2024-04-19 17:47:10.000000000 +0200
++++ omv-etlegacy-2.82.1/src/db/db_sqlite3.c	2024-05-16 20:13:13.739262365 +0200
+@@ -169,8 +169,6 @@
+ 				return qfalse;
+ 			}
+ 
+-			result = sqlite3_enable_shared_cache(1);
+-
+ 			if (result != SQLITE_OK)
+ 			{
+ 				Com_Printf("... failed to share memory database - error: %s\n", sqlite3_errstr(result));
+@@ -437,8 +435,6 @@
+ 			return qfalse;
+ 		}
+ 
+-		result = sqlite3_enable_shared_cache(1);
+-
+ 		if (result != SQLITE_OK)
+ 		{
+ 			Com_Printf("... failed to share memory database - error: %s\n", sqlite3_errstr(result));

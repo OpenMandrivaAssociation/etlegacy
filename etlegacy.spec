@@ -18,6 +18,7 @@ Group:		Games/Other
 Url:		https://www.etlegacy.com/
 Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:	etlegacy-download-data
+Patch0:		drop-sqlite3_enable_shared_cache.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	pkgconfig(libjpeg)
