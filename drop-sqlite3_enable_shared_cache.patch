@@ -1,6 +1,6 @@
 diff -uraN etlegacy-2.82.1/src/db/db_sqlite3.c omv-etlegacy-2.82.1/src/db/db_sqlite3.c
 --- etlegacy-2.82.1/src/db/db_sqlite3.c	2024-04-19 17:47:10.000000000 +0200
-+++ omv-etlegacy-2.82.1/src/db/db_sqlite3.c	2024-05-16 17:51:07.165392674 +0200
++++ omv-etlegacy-2.82.1/src/db/db_sqlite3.c	2024-05-16 18:00:56.843447099 +0200
 @@ -158,31 +158,6 @@
  
  		if (db_mode->integer == 1)
@@ -33,3 +33,48 @@ diff -uraN etlegacy-2.82.1/src/db/db_sqlite3.c omv-etlegacy-2.82.1/src/db/db_sql
  			// load from disk into memory
  			result = DB_LoadOrSaveDb(db, to_ospath, 0);
  
+@@ -427,44 +402,6 @@
+ 
+ 	msec = Sys_Milliseconds();
+ 
+-	if (db_mode->integer == 1)
+-	{
+-		result = sqlite3_open_v2("file::memory:?cache=shared", &db, (SQLITE_OPEN_READWRITE | SQLITE_OPEN_MEMORY), NULL); // we may use SQLITE_OPEN_SHAREDCACHE see URI
+-
+-		if (result != SQLITE_OK)
+-		{
+-			Com_Printf("... failed to create memory database - error: %s\n", sqlite3_errstr(result));
+-			return qfalse;
+-		}
+-
+-		result = sqlite3_enable_shared_cache(1);
+-
+-		if (result != SQLITE_OK)
+-		{
+-			Com_Printf("... failed to share memory database - error: %s\n", sqlite3_errstr(result));
+-			return qfalse;
+-		}
+-		else
+-		{
+-			Com_Printf("... shared cache enabled\n");
+-		}
+-	}
+-	else if (db_mode->integer == 2)
+-	{
+-		char *to_ospath;
+-
+-		if (!db_uri->string[0])
+-		{
+-			Com_Printf("... can't create database - empty URI\n");
+-			return qfalse;
+-		}
+-
+-		if (!COM_CompareExtension(db_uri->string, ".db"))
+-		{
+-			Com_Printf("... DB_Create failed - invalid filename extension\n");
+-			return qfalse;
+-		}
+-
+ 		// Make sure that we actually have the homepath available so we dont try to create a database file into a nonexisting path
+ 		to_ospath = FS_BuildOSPath(Cvar_VariableString("fs_homepath"), "", "");
+ 		if (FS_CreatePath(to_ospath))
