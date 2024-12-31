@@ -16,8 +16,10 @@ Release:	1
 License:	GPL3
 Group:		Games/Other
 Url:		https://www.etlegacy.com/
-Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
+Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.
 Source1:	etlegacy-download-data
+Source2:        https://mirror.etlegacy.com/omnibot/omnibot-linux-latest.tar.gz
+
 Patch0:		drop-sqlite3_enable_shared_cache.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
@@ -50,6 +52,11 @@ version and as many of its mods as possible...
 
 %prep
 %autosetup -p1
+mkdir -p build/legacy
+cp %{SOURCE2} build/legacy
+pushd build/legacy
+tar -xzf %{SOURCE2}
+popd
 
 # Use system flags for all products
 sed -e 's,^\s*SET(CMAKE_BUILD_TYPE "Release"),# &,' -i cmake/ETLCommon.cmake
