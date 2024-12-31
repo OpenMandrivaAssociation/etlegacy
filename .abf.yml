@@ -1,3 +1,5 @@
 sources:
   etlegacy-2.83.1.tar.gz: 6010f96716cb2956fdfa4cb0bed36aebff790d8e
   omnibot-linux-latest.tar.gz: c16353cefb1c5470248e50b48b8b9db3bda284d8
+  wolfadmin.tar.gz: 8b91c3f9aaab536adb55b00adcd8f1ad9ffc6adf
+  GeoIP.dat.tar.gz: d9a113c2a76ac790c28b10a1a69f47aa0224dc4f
