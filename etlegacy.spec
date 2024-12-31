@@ -19,6 +19,8 @@ Url:		https://www.etlegacy.com/
 Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:	etlegacy-download-data
 Source2:        https://mirror.etlegacy.com/omnibot/omnibot-linux-latest.tar.gz
+Source3:        https://mirror.etlegacy.com/geoip/GeoIP.dat.tar.gz
+Source4:        https://mirror.etlegacy.com/wolfadmin/wolfadmin.tar.gz
 
 Patch0:		drop-sqlite3_enable_shared_cache.patch
 BuildRequires:	cmake
@@ -53,9 +55,11 @@ version and as many of its mods as possible...
 %prep
 %autosetup -p1
 mkdir -p build/legacy
-cp %{SOURCE2} build/legacy
+cp %{SOURCE2} %{SOURCE3} %{SOURCE4} build/legacy
 pushd build/legacy
 tar -xzf %{SOURCE2}
+tar -xzf %{SOURCE3}
+tar -xzf %{SOURCE4}
 popd
 
 # Use system flags for all products
