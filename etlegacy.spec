@@ -16,7 +16,7 @@ Release:	1
 License:	GPL3
 Group:		Games/Other
 Url:		https://www.etlegacy.com/
-Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.
+Source0:	https://github.com/etlegacy/etlegacy/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:	etlegacy-download-data
 Source2:        https://mirror.etlegacy.com/omnibot/omnibot-linux-latest.tar.gz
 
