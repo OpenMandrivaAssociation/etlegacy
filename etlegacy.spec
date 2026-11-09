@@ -11,7 +11,7 @@
 
 Summary:	Fully compatible client and server for Wolfenstein: Enemy Territory
 Name:		etlegacy
-Version:	2.84.0
+Version:	2.86.2
 Release:	1
 License:	GPL3
 Group:		Games/Other
